@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <pthread.h>
+#include "auxFunc.h"
 #include "matriz.h"
 
 int main(int argc, char* argv[])
@@ -13,6 +14,12 @@ int main(int argc, char* argv[])
 
     int nThreads = atoi(argv[1]);
     int tamanho = atoi(argv[2]);
+
+    if (tamanho < 0)
+    {
+        printf("Tamanho da matriz incorreto.\n"); 
+        exit(EXIT_FAILURE);
+    }
 
     // Abrindo os arquivos
     FILE* arquivoA = fopen(argv[3], "r");
@@ -43,7 +50,7 @@ int main(int argc, char* argv[])
     fim_multiplicacao = clock() - inicio_multiplicacao;
 
     inicio_reducao = clock();
-    int reduc = reducao(matrizE, arquivoE, tamanho, nThreads);
+    long int reduc = reducao(matrizE, arquivoE, tamanho, nThreads);
     fim_reducao = clock() - inicio_reducao;
 
     double tempo_soma = ((double) fim_soma)/CLOCKS_PER_SEC;
@@ -51,7 +58,7 @@ int main(int argc, char* argv[])
     double tempo_reducao = ((double) fim_reducao)/CLOCKS_PER_SEC;
     double tempo_total = tempo_soma + tempo_multiplicacao + tempo_reducao;
 
-    printf("Reducao: %d\n", reduc);
+    printf("Reducao: %ld\n", reduc);
     printf("Tempo soma: %lf segundos.\n", tempo_soma);
     printf("Tempo multiplicacao: %lf segundos.\n", tempo_multiplicacao);
     printf("Tempo reducao: %lf segundos.\n", tempo_reducao);
