@@ -8,15 +8,20 @@
 int main(int argc, char* argv[])
 {
     if (argc != 8) {
-        printf("Numero de argumentos incorreta\n"); 
+        printf("Numero de argumentos incorreto.\n"); 
         exit(EXIT_FAILURE);
     } 
 
     int nThreads = atoi(argv[1]);
+
+    if (nThreads % 2 != 0) {
+        printf("Numero de threads incorreto.\n"); 
+        exit(EXIT_FAILURE);
+    }
+
     int tamanho = atoi(argv[2]);
 
-    if (tamanho < 0)
-    {
+    if (tamanho <= 0) {
         printf("Tamanho da matriz incorreto.\n"); 
         exit(EXIT_FAILURE);
     }
