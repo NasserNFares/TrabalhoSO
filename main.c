@@ -14,7 +14,7 @@ int main(int argc, char* argv[])
 
     int nThreads = atoi(argv[1]);
 
-    if (nThreads % 2 != 0) {
+    if (nThreads <= 0|| nThreads > 4 || nThreads == 3) {
         printf("Numero de threads incorreto.\n"); 
         exit(EXIT_FAILURE);
     }
